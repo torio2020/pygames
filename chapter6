@@ -1,0 +1,135 @@
+GUIを追加する
+import tkinter
+root = tkinter.Tk()　ウィンドウのオブジェクト(ウィンドウの部品)を作る
+root.mainloop()　　ウィンドウを表示
+
+
+タイトルとサイズを指定する
+import tkinter
+root = tkinter.Tk()　
+root.title("初めてのウィンドウ")　　左下のタイトル
+root.geometry("800x600")　サイズ
+root.mainloop()
+
+
+ラベルの配置
+import tkinter
+root = tkinter.Tk()
+root.title("初めてのラベル")
+root.geometry("800x600")
+label = tkinter.Label(root, text="ラベルの文字列",
+font=("System",24))　　　　　　ラベルの部品を作る
+label.place(x=200, y=100)　　ウィンドウにラベルを配置
+root.mainloop()
+ラベルの作成と配置
+ラベルの変数名　= tkinter.Label(ウィンドウのオブジェクト, text="ラベルの文字列", font=("フォント名",フォントサイズ))
+ラベルの変数名.place(x=X座標,y=Y座標)　左上角が原点(0,0)
+
+
+使えるフォントを調べる
+import tkinter
+import tkinter.font
+root = tkinter.Tk()
+print(tkinter.font.families())　使えるフォントの一覧が出てくる
+
+
+ボタンの配置
+import tkinter
+root = tkinter.Tk()
+root.title("初めてのボタン")
+root.geometry("800x600")
+button = tkinter.Button(root, text="ボタンの文字列",font=("Times New Roman",24))
+button.place(x=200, y=100)
+root.mainloop()
+ボタンの作成と配置
+ボタンの変数名 = tkinter.Button(ウィンドウのオブジェクト,text="ボタンの文字列",font=("フォント名",フォントサイズ))
+ボタンの変数名.place(x=X座標, y=Y座標)
+
+
+ボタンをクリックした時の反応
+import tkinter
+
+def click_btn():
+    button["text"] = "クリックしました"　　ボタンの文字列を変更する
+    
+root = tkinter.Tk()
+root.title("初めてのボタン")
+root.geometry("800x600")
+button = tkinter.Button(root, text="ボタンの文字列",font=("Times New Roman",24),command=click_btn)　
+＃command=でクリック時に働く関数を指定
+button.place(x=200, y=100)
+root.mainloop()
+
+
+キャンバスの配置
+import tkinter
+root = tkinter.Tk()
+root.title("初めてのキャンバス")
+canvas = tkinter.Canvas(root, width=400, height=600, bg="skyblue")
+canvas.pack()
+root.mainloop()
+キャンバスの作成
+変数名 = tkinter.Canvas(ウィンドウのオブジェクト, width=幅, height=高さ, bg=背景色)
+
+
+キャンバスに画像を表示する　(画像と同じフォルダに保存する)
+import tkinter
+root = tkinter.Tk()
+root.title("初めての画像表示")
+canvas = tkinter.Canvas(root, width=400, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="iroha.png")
+canvas.create_image(200, 300, image=gazou)　　ここで指定した座標が画像の中心になる
+root.mainloop()
+
+
+画像の表示
+import tkinter
+root = tkinter.Tk()
+root.title("おみくじソフト")
+root.resizable(False, False)　　ウィンドウのサイズを固定する
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="miko.png")
+canvas.create_image(400, 300, image=gazou)
+root.mainloop()
+
+
+ラベルとボタンを配置
+import tkinter
+root = tkinter.Tk()
+root.title("おみくじソフト")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="miko.png")
+canvas.create_image(400, 300, image=gazou)
+label = tkinter.Label(root, text="？？", font=("Times New Roman",120),bg="white")
+label.place(x=380, y=60)
+button = tkinter.Button(root, text="おみくじを引く",font=("Times New Roman", 36), fg="skyblue")　
+クリックしたら押したのはわかるが何も変わらない。？？と違うのは関数が違うから、button関数はボタンが表示される
+button.place(x=360,y=400)　
+root.mainloop()
+
+
+
+ボタンを反応させる
+import tkinter
+import random
+
+def click_btn():
+    label["text"]=random.choice(["大吉", "中吉", "小吉", "凶"])
+    label.update()　ラベルの文字の更新を即座に行っている。
+    
+root = tkinter.Tk()
+root.title("おみくじソフト")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="miko.png")
+canvas.create_image(400, 300, image=gazou)
+label = tkinter.Label(root, text="？？", font=("Times New Roman",120),bg="white")
+label.place(x=380, y=60)
+button = tkinter.Button(root, text="おみくじを引く",font=("Times New Roman", 36), command=click_btn, fg="skyblue")
+button.place(x=360,y=400)
+root.mainloop()

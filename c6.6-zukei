@@ -1,0 +1,20 @@
+キャンバスに図形を表示する
+後は自分で適宜調べよう
+import tkinter
+root = tkinter.Tk()
+root.title("キャンパスに図形を描く")
+root.geometry("500x400")
+cvs = tkinter.Canvas(root, width=500, height=400, bg="white")
+cvs.pack()
+
+cvs.create_text(250, 25, text="文字列", fill="green", font=("Times New Roman",24))
+
+cvs.create_line(30,30,70,80,fill="navy",width=5)
+
+cvs.create_line(120,20,80,50,200,80,140,120,fill="blue",smooth=True)
+
+cvs.create_rectangle(40,140,16,200,fill="lime")
+
+cvs.create_arc(400-50, 100-50, 400+50, 100+50, fill="yellow",start=30,extent=300)
+
+cvs.mainloop()

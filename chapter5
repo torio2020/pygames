@@ -1,0 +1,215 @@
+pl_pos = 1
+com_pos = 1
+def banmenn():
+    print("・"*(pl_pos-1) + "P" + "・"*(30-pl_pos))
+    print("・"*(com_pos-1) + "C" + "・"*(30-com_pos))
+while True:　無限に繰り返す
+    banmenn()
+    input("Enterを押すとコマが進みます")　入力を待つ(Enterしか受け付けなかった)
+    pl_pos = pl_pos + 1
+    com_pos = com_pos + 2
+実行すると
+P・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+C・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+Enterを押すとコマが進みます
+・P・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+・・C・・・・・・・・・・・・・・・・・・・・・・・・・・・
+Enterを押すとコマが進みます
+・・P・・・・・・・・・・・・・・・・・・・・・・・・・・・
+・・・・C・・・・・・・・・・・・・・・・・・・・・・・・・
+
+
+乱数を使う
+import random
+pl_pos = 1
+com_pos = 1
+def banmenn():
+    print("・"*(pl_pos-1) + "P" + "・"*(30-pl_pos))
+    print("・"*(com_pos-1) + "C" + "・"*(30-com_pos))
+while True:
+    banmenn()
+    input("Enterを押すとコマが進みます")
+    pl_pos = pl_pos + random.randint(1,6)
+    com_pos = com_pos + random.randint(1,6)
+
+
+ゴールに到達したことを判定する
+import random
+pl_pos = 1
+com_pos = 1
+def banmenn():
+    print("・"*(pl_pos-1) + "P" + "・"*(30-pl_pos) + "Goal")
+    print("・"*(com_pos-1) + "C" + "・"*(30-com_pos) + "Goal")
+banmenn()　この関数は表示するだけ
+print("スゴロク、スタート！")
+while True:
+    input("Enterを押すとあなたのコマが進みます")
+    pl_pos = pl_pos + random.randint(1,6)
+    if pl_pos > 30:
+        pl_pos = 30
+    banmenn()
+    if pl_pos == 30:
+        print("あなたの勝ちです")
+        break
+    input("Enterを押すとコンピュータのコマが進みます")
+    com_pos = com_pos + random.randint(1,6)
+    if com_pos > 30:
+        com_pos = 30
+    banmenn()
+    if com_pos == 30:
+        print("コンピュータの勝ちです!")
+        break　←whileに対するbreak
+実行すると
+P・・・・・・・・・・・・・・・・・・・・・・・・・・・・・Goal
+C・・・・・・・・・・・・・・・・・・・・・・・・・・・・・Goal
+スゴロク、スタート！
+Enterを押すとあなたのコマが進みます
+・・・・・P・・・・・・・・・・・・・・・・・・・・・・・・Goal
+C・・・・・・・・・・・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・P・・・・・・・・・・・・・・・・・・・・・・・・Goal
+・・・C・・・・・・・・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・P・・・・・・・・・・・・・・・・・・・・・・・Goal
+・・・C・・・・・・・・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・P・・・・・・・・・・・・・・・・・・・・・・・Goal
+・・・・・C・・・・・・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・P・・・・・・・・・・・・・・・・・・・・・Goal
+・・・・・C・・・・・・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・P・・・・・・・・・・・・・・・・・・・・・Goal
+・・・・・・・・・・C・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・P・・・・・・・・・・・・・・・Goal
+・・・・・・・・・・C・・・・・・・・・・・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・・・・・・・P・・・・・・・・・・・・・・・Goal
+・・・・・・・・・・・・・・・C・・・・・・・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・・・P・・・・・・・・・・・・・Goal
+・・・・・・・・・・・・・・・C・・・・・・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・・・・・・・・・P・・・・・・・・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・C・・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・・・・・・P・・・・・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・C・・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・・・・・・・・・・・・P・・・・・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・・C・・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・・・・・・・P・・・・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・・C・・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・・・・・・・・・・・・・P・・・・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・・・C・・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・・・・・・・・・・P・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・・・C・・・・・・・Goal
+Enterを押すとコンピュータのコマが進みます
+・・・・・・・・・・・・・・・・・・・・・・・P・・・・・・Goal
+・・・・・・・・・・・・・・・・・・・・・・・C・・・・・・Goal
+Enterを押すとあなたのコマが進みます
+・・・・・・・・・・・・・・・・・・・・・・・・・・・・・PGoal
+・・・・・・・・・・・・・・・・・・・・・・・C・・・・・・Goal
+あなたの勝ちです
+>>> 
+
+
+
+A~Zまでのアルファベットで抜けている文字を素早く見つけるゲーム
+ALP = ["A", "B", "C", "D", "E", "F", "G"]
+for i in ALP:　リストの要素1つずつ変数iにいれながら繰り返す
+    print(i)　　iを出力
+実行すると
+A
+B
+C
+D
+E
+F
+G
+>>> 
+
+import random
+ALP = ["A", "B", "C", "D", "E", "F", "G"]
+r = random.choice(ALP)
+alp = ""
+for i in ALP:
+    if i != r:　iが抜けてる文字でなければ　!=は等しくない
+        alp = alp + i　変数alpにアルファベットを追加
+print(alp)
+実行すると
+ABDEFG
+
+import random
+ALP = ["A", "B", "C", "D", "E", "F", "G"]
+r = random.choice(ALP)
+alp = ""
+for i in ALP:
+    if i != r:
+        alp = alp + i
+print(alp)
+ans = input("抜けているアルファベットは？")　こっから変わる
+if ans == r:
+    print("正解です")
+else:
+    print("違います")
+実行すると
+ABDEFG
+抜けているアルファベットは？C
+正解です
+
+
+時間の計測を加える
+import random
+import datetime
+ALP = ["A", "B", "C", "D", "E", "F", "G"]
+r = random.choice(ALP)
+alp = ""
+for i in ALP:
+    if i != r:
+        alp = alp + i
+print(alp)
+st = datetime.datetime.now()
+ans = input("抜けているアルファベットは？")
+if ans == r:
+    print("正解です")
+    et = datetime.datetime.now()
+    print((et-st).seconds)
+else:
+    print("違います")
+実行すると
+ABCDEG
+抜けているアルファベットは？F
+正解です
+4
+
+アルファベットを全部追加
+import random
+import datetime
+ALP = [
+"A", "B", "C", "D", "E", "F", "G",
+"H","I","J","K","L","M","N","O","P",
+"Q","R","S","T","U","V","W","X","Y","Z"]
+r = random.choice(ALP)
+alp = ""
+for i in ALP:
+    if i != r:
+        alp = alp + i
+print(alp)
+st = datetime.datetime.now()
+ans = input("抜けているアルファベットは？")
+if ans == r:
+    print("正解です")
+    et = datetime.datetime.now()
+    print(str((et-st).seconds)+"秒かかりました")　　str() + "文字"で型をそろえて表示
+else:
+    print("違います")
+実行すると
+ABCDEFGHIJKLMOPQRSTUVWXYZ
+抜けているアルファベットは？N
+正解です
+8秒かかりました

@@ -41,3 +41,212 @@ button.pack()
 text = tkinter.Text()　　複数行のテキスト入力欄の部品を作る
 text.pack()　　　　　　　入力欄の部品を配置
 root.mainloop()
+
+
+
+チェックボタンの配置
+import tkinter
+root = tkinter.Tk()
+root.title("チェックボタンを扱う")
+root.geometry("400x200")
+cbtn = tkinter.Checkbutton(text="チェックボタン")
+cbtn.pack()
+root.mainloop()
+
+
+チェックの有無を知る
+チェックの有無はBooleanVar()命令を用いて調べる
+import tkinter
+root = tkinter.Tk()
+root.title("最初からチェックされた状態にする")
+root.geometry("400x200")
+cval = tkinter.BooleanVar()　　BooleanVar()のオブジェクトを用意
+cval.set(True)　　　　　　　　　それにTrueをセットする
+cbtn = tkinter.Checkbutton(text="チェックボタン",variable=cval)
+cbtn.pack()
+root.mainloop()
+
+
+shell にチェックの有無を表示する
+import tkinter
+
+def check():
+    if cval.get() == True:
+        print("チェックされています")
+    else:
+        print("チェックされてません")
+
+        
+root = tkinter.Tk()
+root.title("最初からチェックされた状態にする")
+root.geometry("400x200")
+cval = tkinter.BooleanVar()
+cval.set(True)
+cbtn = tkinter.Checkbutton(text="チェックボタン",variable=cval,command=check)
+cbtn.pack()
+root.mainloop()
+
+
+メッセージボックスの使い方
+import tkinter
+import tkinter.messagebox
+
+def click_btn():
+    tkinter.messagebox.showinfo("情報","ボタンを押しました")
+        
+root = tkinter.Tk()
+root.title("初めてのメッセージボックス")
+root.geometry("400x200")
+btn = tkinter.Button(text="テスト",command=click_btn)
+btn.pack()
+root.mainloop()
+
+
+GUIの配置
+import tkinter
+
+root = tkinter.Tk()
+root.title("ネコ度診断アプリ")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="sumire.png")
+canvas.create_image(400, 300, image=gazou)
+button = tkinter.Button(text="診断する", font=("Times New Roman",32),bg="lightgreen")
+button.place(x=400, y=480)
+text = tkinter.Text(width=40, height=5, font=("Times New Roman",16))
+text.place(x=320, y=30)
+root.mainloop()
+
+
+複数のチェックボタンの配置
+import tkinter
+
+root = tkinter.Tk()
+root.title("ネコ度診断アプリ")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="sumire.png")
+canvas.create_image(400, 300, image=gazou)
+button = tkinter.Button(text="診断する", font=("Times New Roman",32),bg="lightgreen")
+button.place(x=400, y=480)
+text = tkinter.Text(width=40, height=5, font=("Times New Roman",16))
+text.place(x=320, y=30)
+
+bvar = [None]*7
+cbtn = [None]*7
+ITEM = [
+"高いところが好き",
+"ボールを見ると転がしたくなる",
+"びっくりすると髪の毛が逆立つ",
+"ネズミの玩具が気になる",
+"匂いに敏感",
+"魚の骨をしゃぶりたくなる",
+"夜、元気になる"
+]
+for i in range(7):
+    bvar[i] = tkinter.BooleanVar()
+    bvar[i].set(False)
+    cbtn[i] = tkinter.Checkbutton(text=ITEM[i],
+font=("Times New Roman",12),variable=bvar[i],bg="#bfe")
+    cbtn[i].place(x=400, y=160+40*i)
+root.mainloop()
+
+
+チェックされたボタンを数える
+import tkinter
+
+def click_btn():
+    pts = 0
+    for i in range(7):
+        if bvar[i].get() == True:
+            pts = pts + 1
+    text.delete("1.0",tkinter.END)
+    text.insert("1.0","チェックの数は" + str(pts))
+
+root = tkinter.Tk()
+root.title("ネコ度診断アプリ")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="sumire.png")
+canvas.create_image(400, 300, image=gazou)
+button = tkinter.Button(text="診断する", font=("Times New Roman",32),bg="lightgreen",command=click_btn)
+button.place(x=400, y=480)
+text = tkinter.Text(width=40, height=5, font=("Times New Roman",16))
+text.place(x=320, y=30)
+
+bvar = [None]*7
+cbtn = [None]*7
+ITEM = [
+"高いところが好き",
+"ボールを見ると転がしたくなる",
+"びっくりすると髪の毛が逆立つ",
+"ネズミの玩具が気になる",
+"匂いに敏感",
+"魚の骨をしゃぶりたくなる",
+"夜、元気になる"
+]
+for i in range(7):
+    bvar[i] = tkinter.BooleanVar()
+    bvar[i].set(False)
+    cbtn[i] = tkinter.Checkbutton(text=ITEM[i],
+font=("Times New Roman",12),variable=bvar[i],bg="#bfe")
+    cbtn[i].place(x=400, y=160+40*i)
+root.mainloop()
+
+
+コメントを出力する
+import tkinter
+
+KEKKA = [
+"前世がネコだった可能性は極めて薄いです。",
+"いたって普通の人間です。",
+"特別、おかしなところはありません。",
+"やや、ネコっぽいところがあります。",
+"ネコにかなり近い性格のようです。",
+"前世はネコだったかもしれません。",
+"見た目は人間、中身はネコの可能性があります。"
+]
+def click_btn():
+    pts = 0
+    for i in range(7):
+        if bvar[i].get() == True:
+            pts = pts + 1
+    nekodo = int(100*pts/7)　　　　　　　　　　　　　　　　　　　int()は値を整数に変える。小数点が切り捨てられnekodoに整数の値が入る
+    text.delete("1.0",tkinter.END)
+    text.insert("1.0", "<診断結果>\nあなたのネコ度は" +
+str(nekodo) + "%です。\n" + KEKKA[pts])　　　　　　　　　　　　　　\nは改行コード
+    text.insert("1.0","チェックの数は" + str(pts))
+
+root = tkinter.Tk()
+root.title("ネコ度診断アプリ")
+root.resizable(False, False)
+canvas = tkinter.Canvas(root, width=800, height=600)
+canvas.pack()
+gazou = tkinter.PhotoImage(file="sumire.png")
+canvas.create_image(400, 300, image=gazou)
+button = tkinter.Button(text="診断する", font=("Times New Roman",32),bg="lightgreen",command=click_btn)
+button.place(x=400, y=480)
+text = tkinter.Text(width=40, height=5, font=("Times New Roman",16))
+text.place(x=320, y=30)
+
+bvar = [None]*7
+cbtn = [None]*7
+ITEM = [
+"高いところが好き",
+"ボールを見ると転がしたくなる",
+"びっくりすると髪の毛が逆立つ",
+"ネズミの玩具が気になる",
+"匂いに敏感",
+"魚の骨をしゃぶりたくなる",
+"夜、元気になる"
+]
+for i in range(7):
+    bvar[i] = tkinter.BooleanVar()
+    bvar[i].set(False)
+    cbtn[i] = tkinter.Checkbutton(text=ITEM[i],
+font=("Times New Roman",12),variable=bvar[i],bg="#bfe")
+    cbtn[i].place(x=400, y=160+40*i)
+root.mainloop()

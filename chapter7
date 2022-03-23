@@ -1,0 +1,43 @@
+1行のテキスト入力欄
+import tkinter
+root = tkinter.Tk()
+root.title("初めてのテキスト入力欄")
+root.geometry("400x200")
+entry = tkinter.Entry(width=20)  半角20文字分の入力欄の部品を作る
+entry.place(x=10, y=10)　　　　　　入力欄の部品を配置
+root.mainloop()
+
+
+Entry内の文字列の操作
+テキスト入力欄に打った文字がボタンを押すと表示される
+import tkinter
+
+def click_btn():
+    txt = entry.get()　　　　　　入力欄の文字列を変数txtに代入する
+    button["text"] = txt　　　　ボタンの文字列をtxtの値にする
+    
+root = tkinter.Tk()
+root.title("初めてのテキスト入力欄")
+root.geometry("400x200")
+entry = tkinter.Entry(width=20)
+entry.place(x=20, y=20)
+button = tkinter.Button(text="文字列の取得",command=click_btn)
+button.place(x=20,y=100)
+root.mainloop()
+
+
+複数行のテキスト入力欄
+import tkinter
+
+def click_btn():
+    text.insert(tkinter.END,"モンスターが現れた！")
+    
+root = tkinter.Tk()
+root.title("複数行のテキスト入力欄")
+root.geometry("400x200")
+entry = tkinter.Entry(width=20)
+button = tkinter.Button(text="メッセージ",command=click_btn)
+button.pack()
+text = tkinter.Text()　　複数行のテキスト入力欄の部品を作る
+text.pack()　　　　　　　入力欄の部品を配置
+root.mainloop()

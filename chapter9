@@ -72,3 +72,107 @@ cvs.create_image(456, 384, image=bg)
 game_main()
 root.mainloop()
     
+
+マス上のデータを管理する
+import tkinter
+
+neko = [
+[1, 0, 0, 0, 0, 0, 7, 7],
+[0, 2, 0, 0, 0, 0, 7, 7],
+[0, 0, 3, 0, 0, 0, 0, 0],
+[0, 0, 0, 4, 0, 0, 0, 0],
+[0, 0, 0, 0, 5, 0, 0, 0],
+[0, 0, 0, 0, 0, 6, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 1, 2, 3, 4, 5, 6]
+]
+
+def draw_neko():ネコを表示する関数
+    for y in range(10):繰り返し yは0から9まで1ずつ増える
+        for x in range(8):繰り返し xは0から7まで1ずつ増える
+            if neko[y][x] > 0:リストの要素の値が0より大きいなら
+                cvs.create_image(x*72+60, y*72+60, image=img_neko[neko[y][x]])ネコの画像を表示
+
+root = tkinter.Tk()
+root.title("二次元リストでマスを管理する")
+root.resizable(False, False)
+cvs = tkinter.Canvas(root, width=912, height=768)
+cvs.pack()
+
+bg = tkinter.PhotoImage(file="neko_bg.png")
+img_neko = [
+    None,
+    tkinter.PhotoImage(file="neko1.png"),
+    tkinter.PhotoImage(file="neko2.png"),
+    tkinter.PhotoImage(file="neko3.png"),
+    tkinter.PhotoImage(file="neko4.png"),
+    tkinter.PhotoImage(file="neko5.png"),
+    tkinter.PhotoImage(file="neko6.png"),
+    tkinter.PhotoImage(file="neko_niku.png")
+]
+
+cvs.create_image(456, 384, image=bg)
+draw_neko()
+root.mainloop()
+
+
+ブロックを落下させるアルゴリズム
+リストの値を調べる
+エラーは出ないけど落下しない！
+import tkinter
+
+neko = [
+[1, 0, 0, 0, 0, 0, 1, 2],
+[0, 2, 0, 0, 0, 0, 3, 4],
+[0, 0, 3, 0, 0, 0, 0, 0],
+[0, 0, 0, 4, 0, 0, 0, 0],
+[0, 0, 0, 0, 5, 0, 0, 0],
+[0, 0, 0, 0, 0, 6, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 1, 2, 3, 4, 0, 0]
+]
+
+def draw_neko():
+    for y in range(10):
+        for x in range(8):
+            if neko[y][x] > 0:
+                cvs.create_image(x*72+60, y*72+60, image=img_neko[neko[y][x]], tag="NEKO")
+
+def drop_neko():ネコを落下させる関数
+    for y in range(8, -1, -1):繰り返し yは8から0まで1ずつ減る
+        for x in range(8):繰り返し xは0から7まで1ずつ増える
+            if neko[y][x] != 0 and neko[y+1][x] == 0:ネコのあるマスの下が空白なら
+                neko[y+1][x] = neko[y][x]空白にネコを入れ
+                neko[y][x] = 0元のネコのマスは空白にする
+
+def game_main():
+    drop_neko()ネコを落下させる関数を呼び出す
+    cvs.delete("NEKO")ネコの画像を削除
+    draw_neko()ネコを表示
+    root.after(100, game_main)0.1秒後に再びメインの処理を実行
+
+root = tkinter.Tk()
+root.title("ネコを落下させる")
+root.resizable(False, False)
+cvs = tkinter.Canvas(root, width=912, height=768)
+cvs.pack()
+
+bg = tkinter.PhotoImage(file="neko_bg.png")
+img_neko = [
+    None,
+    tkinter.PhotoImage(file="neko1.png"),
+    tkinter.PhotoImage(file="neko2.png"),
+    tkinter.PhotoImage(file="neko3.png"),
+    tkinter.PhotoImage(file="neko4.png"),
+    tkinter.PhotoImage(file="neko5.png"),
+    tkinter.PhotoImage(file="neko6.png"),
+    tkinter.PhotoImage(file="neko_niku.png")
+]
+
+cvs.create_image(456, 384, image=bg)
+draw_neko()
+root.mainloop()

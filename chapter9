@@ -174,5 +174,5 @@ img_neko = [
 ]
 
 cvs.create_image(456, 384, image=bg)
-draw_neko()
+game_main()
 root.mainloop()

@@ -344,3 +344,6 @@ cvs.create_rectangle(660, 100, 840, 160, fill = "white")
 cvs.create_text(750, 130, text="テスト", fill="red", font=("Times New Roman", 30))
 game_main()
 root.mainloop()
+
+
+縦、横、斜めに3つ以上ブロックが揃ったことを正確に判定するアルゴリズム

@@ -176,3 +176,171 @@ img_neko = [
 cvs.create_image(456, 384, image=bg)
 game_main()
 root.mainloop()
+
+クリックしてブロックを置く
+import tkinter
+import random
+
+cursor_x = 0  カーソルの横方向の位置（左から何マス目か）
+cursor_y = 0  縦（上）
+mouse_x = 0  マウスポインタのx座標
+mouse_y = 0  マウスポインタのy座標
+mouse_c = 0  マウスボタンをクリックした時の変数(フラグ)
+
+def mouse_move(e):
+    global mouse_x, mouse_y
+    mouse_x = e.x  mouse_xにマウスポインタのx座標を代入
+    mouse_y = e.y  mouse_yにマウスポインタのy座標を代入
+
+def mouse_press(e):
+    global mouse_c
+    mouse_c = 1
+
+neko = [
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0, 0, 0, 0]
+]
+
+def draw_neko():
+    for y in range(10):
+        for x in range(8):
+            if neko[y][x] > 0:
+                cvs.create_image(x*72+60, y*72+60, image=img_neko[neko[y][x]], tag="NEKO") ネコの画像を表示
+
+def drop_neko():
+    for y in range(8, -1, -1): yは8から0まで1ずつ減る
+        for x in range(8): 0から7まで1ずつ増える
+            if neko[y][x] != 0 and neko[y+1][x] == 0:ネコのあるマスの下が空白なら
+                neko[y+1][x] = neko[y][x]空白にネコを入れ
+                neko[y][x] = 0元のネコのマスは空白にする
+
+def game_main():
+    global cursor_x, cursor_y ,mouse_c
+    drop_neko()
+    if 24 <= mouse_x and mouse_x < 24+72*8 and 24 <= mouse_y and mouse_y < 24+72*10:マウスポインタの座標が盤面上であれば
+        cursor_x = int((mouse_x)/72)  ポインタのx座標からカーソルの横の位置を計算
+        cursor_y = int((mouse_y)/72)  
+        if mouse_c == 1:  マウスボタンをクリックしたら
+            mouse_c =0  クリックしたフラグを解除
+            neko[cursor_y][cursor_x] = random.randint(1,6)  カーソルのマスにランダムにネコを配置
+    cvs.delete("CURSOR")   カーソルを消し
+    cvs.create_image(cursor_x*72+60, cursor_y*72+60, image=cursor, tag="CURSOR")  新な位置にカーソルを表示する
+    cvs.delete("NEKO")
+    draw_neko()
+    root.after(100, game_main)  0.1秒後に再びメインの処理を実行
+
+root = tkinter.Tk()
+root.title("クリックしてネコを置く")
+root.resizable(False, False)
+root.bind("<Motion>", mouse_move)
+root.bind("<ButtonPress>",mouse_press)
+cvs = tkinter.Canvas(root, width=912, height=768)
+cvs.pack()
+
+bg = tkinter.PhotoImage(file="neko_bg.png")
+cursor = tkinter.PhotoImage(file="neko_cursor.png")
+img_neko = [
+    None,
+    tkinter.PhotoImage(file="neko1.png"),
+    tkinter.PhotoImage(file="neko2.png"),
+    tkinter.PhotoImage(file="neko3.png"),
+    tkinter.PhotoImage(file="neko4.png"),
+    tkinter.PhotoImage(file="neko5.png"),
+    tkinter.PhotoImage(file="neko6.png"),
+    tkinter.PhotoImage(file="neko_niku.png")
+]
+
+cvs.create_image(456, 384, image=bg)
+game_main()
+root.mainloop()
+
+ブロックが揃ったか判定するアルゴリズム
+import tkinter
+import random
+
+cursor_x = 0
+cursor_y = 0
+mouse_x = 0
+mouse_y = 0
+mouse_c = 0
+
+def mouse_move(e):
+    global mouse_x, mouse_y
+    mouse_x = e.x
+    mouse_y = e.y
+
+def mouse_press(e):
+    global mouse_c
+    mouse_c = 1
+
+neko = []マス目を管理する二次元リスト
+for i in range(10):繰り返しと
+    neko.append([0,0,0,0,0,0,0,0])  append()命令でリストを初期化する
+
+def draw_neko():
+    for y in range(10):
+        for x in range(8):
+            if neko[y][x] > 0:
+                cvs.create_image(x*72+60, y*72+60, image=img_neko[neko[y][x]], tag="NEKO")
+
+def yoko_neko():ネコが横に3つ並んだか調べる関数
+    for y in range(10):
+        for x in range(1, 7):
+            if neko[y][x] > 0:マスにネコが配置されていて
+                if neko[y][x-1] == neko[y][x] and neko[y][x+1] == neko[y][x]:左右が同じネコなら
+                    neko[y][x-1] = 7
+                    neko[y][x] =7
+                    neko[y][x+1] = 7
+
+def game_main():
+    global cursor_x, cursor_y ,mouse_c
+    if 660 <= mouse_x and mouse_x < 840 and 100 <= mouse_y and mouse_y < 160 and mouse_c == 1:
+    風船内の「テスト」という文字をクリックしたら
+        mouse_c = 0  クリックしたフラグを解除
+        yoko_neko()   
+    if 24 <= mouse_x and mouse_x < 24+72*8 and 24 <= mouse_y and mouse_y < 24+72*10:
+        cursor_x = int((mouse_x)/72)
+        cursor_y = int((mouse_y)/72)  
+        if mouse_c == 1:
+            mouse_c =0
+            neko[cursor_y][cursor_x] = random.randint(1, 2)
+    cvs.delete("CURSOR")
+    cvs.create_image(cursor_x*72+60, cursor_y*72+60, image=cursor, tag="CURSOR")
+    cvs.delete("NEKO")
+    draw_neko()
+    root.after(100, game_main)
+
+root = tkinter.Tk()
+root.title("横に3つ並んだか")
+root.resizable(False, False)
+root.bind("<Motion>", mouse_move)
+root.bind("<ButtonPress>",mouse_press)
+cvs = tkinter.Canvas(root, width=912, height=768)
+cvs.pack()
+
+bg = tkinter.PhotoImage(file="neko_bg.png")
+cursor = tkinter.PhotoImage(file="neko_cursor.png")
+img_neko = [
+    None,
+    tkinter.PhotoImage(file="neko1.png"),
+    tkinter.PhotoImage(file="neko2.png"),
+    tkinter.PhotoImage(file="neko3.png"),
+    tkinter.PhotoImage(file="neko4.png"),
+    tkinter.PhotoImage(file="neko5.png"),
+    tkinter.PhotoImage(file="neko6.png"),
+    tkinter.PhotoImage(file="neko_niku.png")
+]
+
+cvs.create_image(456, 384, image=bg)
+cvs.create_rectangle(660, 100, 840, 160, fill = "white")
+cvs.create_text(750, 130, text="テスト", fill="red", font=("Times New Roman", 30))
+game_main()
+root.mainloop()
